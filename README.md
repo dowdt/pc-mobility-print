@@ -1,5 +1,7 @@
 # pc-mobility-print
-UNOFFICIAL PaperCut Mobility Print Linux client
+UNOFFICIAL PaperCut Mobility Print Linux client.
+
+Note that the url parsing isn't robust so if you're printer has symbols that might trip a url parser then it might break it.
 
 # Usage (GUI)
 

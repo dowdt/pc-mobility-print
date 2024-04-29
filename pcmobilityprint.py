@@ -109,16 +109,18 @@ class PCMobilityPrint:
 		b64creds = base64.b64encode(f"{self.username}:{self.password}".encode()).strip().decode()
 
 		try:
+			name = name.replace('&', '%26')
+			req_str = f"{self.baseurl}/printer-url?printerName={name}&serverName={self.socket}"
 
-			req = urllib.request.Request(f"{self.baseurl}/printer-url?printerName={name}&serverName={self.socket}")
+			req = urllib.request.Request(req_str)
 			req.add_header("Authorization", f"Basic {b64creds}")
 			p = urllib.request.urlopen(req, context=ctx)
 
 			return p.read().decode()
 
 		except urllib.error.HTTPError as e:
+			print(e)
 
-			# TODO: better error handling
 			return None
 
 	def get_description(self, name):
@@ -137,6 +139,7 @@ class PCMobilityPrint:
 
 		# TODO: Error checking if host not set
 		# TODO: Error checking if not authenticated
+		print(name)
 
 		url = self.get_printer(name)
 		desc = self.get_description(name)
